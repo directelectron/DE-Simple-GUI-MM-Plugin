@@ -86,6 +86,10 @@ public class MainFrame extends javax.swing.JFrame {
         exposure_gain = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
+        UpdateButton = new javax.swing.JButton();
+        jLabel13 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        CameraStatusText = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -127,6 +131,11 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         StatusText.setEnabled(false);
+        StatusText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                StatusTextActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("msec");
 
@@ -217,6 +226,22 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel12.setText("msec");
 
+        UpdateButton.setText("Update");
+        UpdateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UpdateButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel13.setText("Camera Status");
+
+        CameraStatusText.setColumns(30);
+        CameraStatusText.setEditable(false);
+        CameraStatusText.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        CameraStatusText.setLineWrap(true);
+        CameraStatusText.setRows(6);
+        jScrollPane1.setViewportView(CameraStatusText);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -256,7 +281,6 @@ public class MainFrame extends javax.swing.JFrame {
                                     .addComponent(binning3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(binning2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(binning1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(StatusText, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(gainButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -270,21 +294,26 @@ public class MainFrame extends javax.swing.JFrame {
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(exposure_dark, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel11))))))
+                                        .addComponent(jLabel11))))
+                            .addComponent(StatusText, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel13)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(UpdateButton))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(293, 293, 293)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(save_sum_images_count, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(13, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(95, 95, 95)
-                .addComponent(save_final_image)
-                .addGap(11, 11, 11)
-                .addComponent(save_raw_data)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(save_sum_images)
-                .addGap(402, 402, 402))
+                        .addComponent(save_sum_images_count, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(95, 95, 95)
+                        .addComponent(save_final_image)
+                        .addGap(11, 11, 11)
+                        .addComponent(save_raw_data)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(save_sum_images)))
+                .addContainerGap())
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {snapButton1, snapSaveButton});
@@ -342,7 +371,13 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(jLabel12))
                 .addGap(18, 18, 18)
                 .addComponent(StatusText, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(UpdateButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {snapButton1, snapSaveButton});
@@ -353,15 +388,15 @@ public class MainFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 477, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -379,7 +414,16 @@ private void gainButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     if (exposure_time!=0){
         int choice = JOptionPane.showConfirmDialog(null,"You are about to acquire an uniform illumination image ("+Integer.toString(exposure_time)+" millisec) as the flat field reference. Are you sure?", "Gain Reference Acquisition", JOptionPane.YES_NO_OPTION);
         if (choice!=0) return; //YES=0 to continue
-        try{        
+        try{
+            String original_sum_value = core_.getProperty(currentCamera, "Autosave Summed Image"); //store the original value
+            String original_final_value = core_.getProperty(currentCamera, "Autosave Final Image"); //store the original value
+            String original_raw_value = core_.getProperty(currentCamera, "Autosave Raw Frames"); //store the original value
+            String original_sum_count_value = core_.getProperty(currentCamera, "Autosave Sum Frames - Sum Count"); //store the original value
+
+            core_.setProperty(currentCamera, "Autosave Final Image", "Save");
+            core_.setProperty(currentCamera, "Autosave Raw Frames", "Save");            
+            core_.setProperty(currentCamera, "Autosave Summed Image", "Discard");
+            
             double exp_time = exposure_time/1000.0;
             String exp_time_value = Double.toString(exp_time);
             String original_exp_value = core_.getProperty(currentCamera, "Exposure Time (seconds)"); //store the original value
@@ -399,6 +443,11 @@ private void gainButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             core_.setProperty(currentCamera, "Exposure Mode", original_expmode_value); //set back to normal acquisition        
             core_.setProperty(currentCamera, "Binning", original_binning_value); //set to the original value
             core_.setProperty(currentCamera, "Exposure Time (seconds)", original_exp_value); //set to the original value
+            
+            core_.setProperty(currentCamera, "Autosave Summed Image", original_sum_value); //set to the original value
+            core_.setProperty(currentCamera, "Autosave Final Image", original_final_value); //set to the original value
+            core_.setProperty(currentCamera, "Autosave Raw Frames", original_raw_value); //set to the original value
+            
             StatusText.setText("Gain reference acquired with "+actual_exp_time+" seconds exposure.");
             gui_.refreshGUI();
         }catch (Exception ex) {
@@ -406,6 +455,8 @@ private void gainButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
        }
     } else 
         StatusText.setText("Incorrect exposure setting. ");
+    
+    UpdateCameraStatus(); 
 }//GEN-LAST:event_gainButtonActionPerformed
 
 private void snapButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_snapButton1ActionPerformed
@@ -444,7 +495,8 @@ private void snapButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
             StatusText.setText("Incorrect exposure setting. ");
     }catch (Exception ex) {
         ReportingUtils.showError(ex);
-    }    
+    }
+    UpdateCameraStatus(); 
 }//GEN-LAST:event_snapButton1ActionPerformed
 
 private void darkButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_darkButtonActionPerformed
@@ -458,7 +510,15 @@ private void darkButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     if (exposure_time!=0){
         int choice = JOptionPane.showConfirmDialog(null,"You are about to acquire a new dark reference ("+Integer.toString(exposure_time)+" millisec). Are you sure?", "Dark Reference Acquisition", JOptionPane.YES_NO_OPTION);
         if (choice!=0) return; //YES=0 to continue
-        try{        
+        try{
+            String original_sum_value = core_.getProperty(currentCamera, "Autosave Summed Image"); //store the original value
+            String original_final_value = core_.getProperty(currentCamera, "Autosave Final Image"); //store the original value
+            String original_raw_value = core_.getProperty(currentCamera, "Autosave Raw Frames"); //store the original value
+
+            core_.setProperty(currentCamera, "Autosave Final Image", "Save");
+            core_.setProperty(currentCamera, "Autosave Raw Frames", "Save");            
+            core_.setProperty(currentCamera, "Autosave Summed Image", "Discard");            
+
             double exp_time = exposure_time/1000.0;
             String exp_time_value = Double.toString(exp_time);
             String original_exp_value = core_.getProperty(currentCamera, "Exposure Time (seconds)"); //store the original value
@@ -478,6 +538,11 @@ private void darkButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             core_.setProperty(currentCamera, "Exposure Mode", original_expmode_value); //set back to normal acquisition        
             core_.setProperty(currentCamera, "Binning", original_binning_value); //set to the original value
             core_.setProperty(currentCamera, "Exposure Time (seconds)", original_exp_value); //set to the original value
+            
+            core_.setProperty(currentCamera, "Autosave Summed Image", original_sum_value); //set to the original value
+            core_.setProperty(currentCamera, "Autosave Final Image", original_final_value); //set to the original value
+            core_.setProperty(currentCamera, "Autosave Raw Frames", original_raw_value); //set to the original value
+            
             StatusText.setText("Dark reference acquired with "+actual_exp_time+" seconds exposure.");
             gui_.refreshGUI();
         }catch (Exception ex) {
@@ -485,6 +550,8 @@ private void darkButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         }
     } else
         StatusText.setText("Incorrect exposure setting. ");
+    
+    UpdateCameraStatus(); 
 }//GEN-LAST:event_darkButtonActionPerformed
 
 private void snapSaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_snapSaveButtonActionPerformed
@@ -554,7 +621,8 @@ private void snapSaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GE
             StatusText.setText("Incorrect exposure setting. ");
     }catch (Exception ex) {
         ReportingUtils.showError(ex);
-    }
+    }    
+    UpdateCameraStatus(); 
 }//GEN-LAST:event_snapSaveButtonActionPerformed
 
 private void exposure1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exposure1ActionPerformed
@@ -602,6 +670,7 @@ private void snapButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     }catch (Exception ex) {
         ReportingUtils.showError(ex);
     }   
+    UpdateCameraStatus(); 
 }//GEN-LAST:event_snapButton2ActionPerformed
 
 private void save_final_imageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_save_final_imageActionPerformed
@@ -628,6 +697,35 @@ private void exposure_gainActionPerformed(java.awt.event.ActionEvent evt) {//GEN
 // TODO add your handling code here:
 }//GEN-LAST:event_exposure_gainActionPerformed
 
+    private void StatusTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StatusTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_StatusTextActionPerformed
+
+    private void UpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateButtonActionPerformed
+        // TODO add your handling code here:
+        UpdateCameraStatus();
+    }//GEN-LAST:event_UpdateButtonActionPerformed
+
+    private void UpdateCameraStatus() {
+        try{
+            String displayText = "";
+            String position = core_.getProperty(currentCamera, "Camera Position"); 
+            String temperature = core_.getProperty(currentCamera, "Temperature - Detector (Celsius)"); 
+            String instant_intensity = core_.getProperty(currentCamera, "Faraday Plate - Beam Density (pA/cm^2)"); 
+            displayText += "Camera position: " + position + "\n";
+            displayText += "Detector temperature: " + temperature + " Celsius.\n";
+            displayText += "Faraday plate instantaneous reading: " + instant_intensity + " pA/cm2.\n";
+            String peak_intensity = core_.getProperty(currentCamera, "Faraday Plate - Last Exposure Peak Density (pA/cm^2)"); 
+            String peak_dose_rate = core_.getProperty(currentCamera, "Faraday Plate - Last Exposure Peak Density (electron/pixel/second)"); 
+            String last_exposure_total_dose = core_.getProperty(currentCamera, "Faraday Plate - Total Dose in Last Exposure (electron/pixel)");             
+            displayText += "Last exposure (total dose): " + last_exposure_total_dose + " el-/pixel.\n";
+            displayText += "Last exposure (peak intensity): " + peak_intensity + " pA/cm2 or " + peak_dose_rate + " el-/px/sec.\n";
+            CameraStatusText.setText( displayText );
+        }catch (Exception ex) {
+            ReportingUtils.showError(ex);
+        }   
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -669,7 +767,9 @@ private void exposure_gainActionPerformed(java.awt.event.ActionEvent evt) {//GEN
  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea CameraStatusText;
     private javax.swing.JFormattedTextField StatusText;
+    private javax.swing.JButton UpdateButton;
     private javax.swing.JTextField binning1;
     private javax.swing.JTextField binning2;
     private javax.swing.JTextField binning3;
@@ -684,6 +784,7 @@ private void exposure_gainActionPerformed(java.awt.event.ActionEvent evt) {//GEN
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -693,6 +794,7 @@ private void exposure_gainActionPerformed(java.awt.event.ActionEvent evt) {//GEN
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JCheckBox save_final_image;
     private javax.swing.JCheckBox save_raw_data;
     private javax.swing.JCheckBox save_sum_images;
