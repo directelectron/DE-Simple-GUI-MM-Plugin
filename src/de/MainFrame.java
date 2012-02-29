@@ -10,6 +10,7 @@
  */
 package de;
 
+import java.util.*;
 import ij.process.ByteProcessor;
 
 import ij.process.ShortProcessor;
@@ -35,7 +36,8 @@ public class MainFrame extends javax.swing.JFrame {
     protected final DeviceControlGUI dGui_;
     protected final CMMCore core_;
     protected String currentCamera;    
-    
+    protected Map<String, String> stored_property_list; 
+
     /** Creates new form MainFrame */
     public MainFrame(ScriptInterface gui) {
         initComponents();
@@ -44,6 +46,7 @@ public class MainFrame extends javax.swing.JFrame {
         core_ = gui_.getMMCore();
         dGui_ = (DeviceControlGUI) gui_;
         currentCamera = core_.getCameraDevice();
+        stored_property_list = new HashMap<String,String>();
     }
 
     /** This method is called from within the constructor to
@@ -61,7 +64,6 @@ public class MainFrame extends javax.swing.JFrame {
         darkButton = new javax.swing.JButton();
         gainButton = new javax.swing.JButton();
         exposure1 = new javax.swing.JTextField();
-        StatusText = new javax.swing.JFormattedTextField();
         jLabel1 = new javax.swing.JLabel();
         exposure2 = new javax.swing.JTextField();
         snapButton2 = new javax.swing.JButton();
@@ -90,6 +92,10 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         CameraStatusText = new javax.swing.JTextArea();
+        CorrectionMode1 = new javax.swing.JComboBox();
+        CorrectionMode2 = new javax.swing.JComboBox();
+        CorrectionMode3 = new javax.swing.JComboBox();
+        StatusText = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -127,13 +133,6 @@ public class MainFrame extends javax.swing.JFrame {
         exposure1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exposure1ActionPerformed(evt);
-            }
-        });
-
-        StatusText.setEnabled(false);
-        StatusText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                StatusTextActionPerformed(evt);
             }
         });
 
@@ -179,6 +178,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         save_sum_images_count.setText("0");
+        save_sum_images_count.setToolTipText("Number of frames in each grouped sum. 0 means all frames summed together.");
         save_sum_images_count.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 save_sum_images_countActionPerformed(evt);
@@ -242,6 +242,22 @@ public class MainFrame extends javax.swing.JFrame {
         CameraStatusText.setRows(6);
         jScrollPane1.setViewportView(CameraStatusText);
 
+        CorrectionMode1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Gain and Dark Corrected", "Uncorrected Raw", "Dark Corrected" }));
+        CorrectionMode1.setToolTipText("1, 2, 3");
+
+        CorrectionMode2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Gain and Dark Corrected", "Uncorrected Raw", "Dark Corrected" }));
+        CorrectionMode2.setToolTipText("1, 2, 3");
+
+        CorrectionMode3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Gain and Dark Corrected", "Uncorrected Raw", "Dark Corrected" }));
+        CorrectionMode3.setToolTipText("1, 2, 3");
+
+        StatusText.setEnabled(false);
+        StatusText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                StatusTextActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -251,69 +267,78 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(23, 23, 23)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel5))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(snapButton1)
-                                    .addComponent(snapButton2)
-                                    .addComponent(snapSaveButton))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(exposure1, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
-                                    .addComponent(exposure3, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
-                                    .addComponent(exposure2))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel7))
-                                .addGap(22, 22, 22)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jLabel10))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(binning3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(binning2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(binning1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(gainButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(darkButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(exposure_gain, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel12))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(exposure_dark, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel11))))
-                            .addComponent(StatusText, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel13)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(UpdateButton))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(293, 293, 293)
-                        .addComponent(jLabel6)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(snapButton1)
+                            .addComponent(snapButton2)
+                            .addComponent(snapSaveButton))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(save_sum_images_count, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(exposure1, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
+                            .addComponent(exposure3, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
+                            .addComponent(exposure2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel7))
+                        .addGap(22, 22, 22)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel10))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(binning3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(binning2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(binning1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(CorrectionMode3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(CorrectionMode2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(CorrectionMode1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(95, 95, 95)
                         .addComponent(save_final_image)
                         .addGap(11, 11, 11)
                         .addComponent(save_raw_data)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(save_sum_images)))
+                        .addComponent(save_sum_images)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(save_sum_images_count, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(darkButton, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(exposure_dark, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel11)
+                        .addGap(43, 43, 43)
+                        .addComponent(gainButton, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(exposure_gain, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel12)))
                 .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(StatusText, javax.swing.GroupLayout.DEFAULT_SIZE, 565, Short.MAX_VALUE)
+                .addGap(13, 13, 13))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(UpdateButton))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 565, Short.MAX_VALUE))
+                .addGap(13, 13, 13))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {snapButton1, snapSaveButton});
@@ -328,7 +353,8 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(binning1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(snapButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(jLabel1)
+                    .addComponent(CorrectionMode1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(27, 27, 27)
@@ -336,7 +362,8 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(exposure2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(binning2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel9)
-                            .addComponent(jLabel2)))
+                            .addComponent(jLabel2)
+                            .addComponent(CorrectionMode2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -349,35 +376,32 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(exposure3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10)
                     .addComponent(binning3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
+                    .addComponent(jLabel7)
+                    .addComponent(CorrectionMode3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(save_final_image)
                     .addComponent(save_raw_data)
-                    .addComponent(save_sum_images))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(save_sum_images)
                     .addComponent(jLabel6)
                     .addComponent(save_sum_images_count, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(darkButton, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
                     .addComponent(exposure_dark, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11))
-                .addGap(11, 11, 11)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
                     .addComponent(gainButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(exposure_gain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(StatusText, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
                     .addComponent(UpdateButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(17, 17, 17))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {snapButton1, snapSaveButton});
@@ -388,15 +412,14 @@ public class MainFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 588, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 477, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -415,41 +438,20 @@ private void gainButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         int choice = JOptionPane.showConfirmDialog(null,"You are about to acquire an uniform illumination image ("+Integer.toString(exposure_time)+" millisec) as the flat field reference. Are you sure?", "Gain Reference Acquisition", JOptionPane.YES_NO_OPTION);
         if (choice!=0) return; //YES=0 to continue
         try{
-            String original_sum_value = core_.getProperty(currentCamera, "Autosave Summed Image"); //store the original value
-            String original_final_value = core_.getProperty(currentCamera, "Autosave Final Image"); //store the original value
-            String original_raw_value = core_.getProperty(currentCamera, "Autosave Raw Frames"); //store the original value
-            String original_sum_count_value = core_.getProperty(currentCamera, "Autosave Sum Frames - Sum Count"); //store the original value
-
-            core_.setProperty(currentCamera, "Autosave Final Image", "Save");
-            core_.setProperty(currentCamera, "Autosave Raw Frames", "Save");            
-            core_.setProperty(currentCamera, "Autosave Summed Image", "Discard");
-            
+            StoreOriginalSettings();
+            core_.setProperty(currentCamera, "Correction Mode", "Dark Corrected"); //set to dark corrected for the gain reference
+            UpdateAutoSavingOptions("Save", "Save", "Discard"); //store raw frames for gain reference
             double exp_time = exposure_time/1000.0;
             String exp_time_value = Double.toString(exp_time);
-            String original_exp_value = core_.getProperty(currentCamera, "Exposure Time (seconds)"); //store the original value
             core_.setProperty(currentCamera, "Exposure Time (seconds)", exp_time_value); //set to desired exposure
             String actual_exp_time = core_.getProperty(currentCamera, "Exposure Time (seconds)"); //get the actual exposure time
-            
-            String original_binning_value = core_.getProperty(currentCamera, "Binning"); //store the original value            
             core_.setProperty(currentCamera, "Binning", "1");
-
-            String original_expmode_value = core_.getProperty(currentCamera, "Exposure Mode"); //store the original value
             core_.setProperty(currentCamera, "Exposure Mode", "Gain"); //set to gain reference acquisition
-
             core_.snapImage();
             short[] img = (short[])core_.getImage(); 
             gui_.displayImage(img);
-
-            core_.setProperty(currentCamera, "Exposure Mode", original_expmode_value); //set back to normal acquisition        
-            core_.setProperty(currentCamera, "Binning", original_binning_value); //set to the original value
-            core_.setProperty(currentCamera, "Exposure Time (seconds)", original_exp_value); //set to the original value
-            
-            core_.setProperty(currentCamera, "Autosave Summed Image", original_sum_value); //set to the original value
-            core_.setProperty(currentCamera, "Autosave Final Image", original_final_value); //set to the original value
-            core_.setProperty(currentCamera, "Autosave Raw Frames", original_raw_value); //set to the original value
-            
+            RestoreOriginalSettings();
             StatusText.setText("Gain reference acquired with "+actual_exp_time+" seconds exposure.");
-            gui_.refreshGUI();
         }catch (Exception ex) {
             ReportingUtils.showError(ex);
        }
@@ -475,21 +477,18 @@ private void snapButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
             binning_option = 1;
         }
         if (exposure_time != 0){
-            String original_value = core_.getProperty(currentCamera, "Autosave Summed Image"); //store the original value
-            core_.setProperty(currentCamera, "Autosave Summed Image", "Discard");
-            String original_binning_value = core_.getProperty(currentCamera, "Binning"); //store the original value            
+            StoreOriginalSettings(); //store the original values
+            core_.setProperty(currentCamera, "Correction Mode", CorrectionMode1.getSelectedItem().toString()); 
+            UpdateAutoSavingOptions("Discard", "Discard", "Discard"); //store raw frames for gain reference
             core_.setProperty(currentCamera, "Binning", Integer.toString(binning_option));
             double exp_time = exposure_time/1000.0;
             String exp_time_value = Double.toString(exp_time);
-            String original_exp_value = core_.getProperty(currentCamera, "Exposure Time (seconds)"); //store the original value
             core_.setProperty(currentCamera, "Exposure Time (seconds)", exp_time_value); //set to desired exposure
             String actual_exp_time = core_.getProperty(currentCamera, "Exposure Time (seconds)"); //get the actual exposure time
             core_.snapImage();
             short[] img = (short[])core_.getImage(); 
             gui_.displayImage(img);
-            core_.setProperty(currentCamera, "Exposure Time (seconds)", original_exp_value); //set to the original value
-            core_.setProperty(currentCamera, "Binning", original_binning_value); //set to the original value
-            core_.setProperty(currentCamera, "Autosave Summed Image", original_value); //set to the original value
+            RestoreOriginalSettings(); //restore original values
             StatusText.setText("A new image acquired for display only with exposure time of " + actual_exp_time + " seconds.");
         } else 
             StatusText.setText("Incorrect exposure setting. ");
@@ -511,38 +510,19 @@ private void darkButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         int choice = JOptionPane.showConfirmDialog(null,"You are about to acquire a new dark reference ("+Integer.toString(exposure_time)+" millisec). Are you sure?", "Dark Reference Acquisition", JOptionPane.YES_NO_OPTION);
         if (choice!=0) return; //YES=0 to continue
         try{
-            String original_sum_value = core_.getProperty(currentCamera, "Autosave Summed Image"); //store the original value
-            String original_final_value = core_.getProperty(currentCamera, "Autosave Final Image"); //store the original value
-            String original_raw_value = core_.getProperty(currentCamera, "Autosave Raw Frames"); //store the original value
-
-            core_.setProperty(currentCamera, "Autosave Final Image", "Save");
-            core_.setProperty(currentCamera, "Autosave Raw Frames", "Save");            
-            core_.setProperty(currentCamera, "Autosave Summed Image", "Discard");            
-
+            StoreOriginalSettings(); //store the original values            
+            core_.setProperty(currentCamera, "Correction Mode", "Uncorrected Raw"); //set to uncorrected for the dark reference
+            UpdateAutoSavingOptions("Save", "Save", "Discard"); //store raw frames for dark reference
             double exp_time = exposure_time/1000.0;
             String exp_time_value = Double.toString(exp_time);
-            String original_exp_value = core_.getProperty(currentCamera, "Exposure Time (seconds)"); //store the original value
             core_.setProperty(currentCamera, "Exposure Time (seconds)", exp_time_value); //set to desired exposure
             String actual_exp_time = core_.getProperty(currentCamera, "Exposure Time (seconds)"); //get the actual exposure time
-
-            String original_binning_value = core_.getProperty(currentCamera, "Binning"); //store the original value            
             core_.setProperty(currentCamera, "Binning", "1");
-
-            String original_expmode_value = core_.getProperty(currentCamera, "Exposure Mode"); //store the original value
             core_.setProperty(currentCamera, "Exposure Mode", "Dark"); //set to dark reference acquisition
-
             core_.snapImage();
             short[] img = (short[])core_.getImage(); 
             gui_.displayImage(img);
-
-            core_.setProperty(currentCamera, "Exposure Mode", original_expmode_value); //set back to normal acquisition        
-            core_.setProperty(currentCamera, "Binning", original_binning_value); //set to the original value
-            core_.setProperty(currentCamera, "Exposure Time (seconds)", original_exp_value); //set to the original value
-            
-            core_.setProperty(currentCamera, "Autosave Summed Image", original_sum_value); //set to the original value
-            core_.setProperty(currentCamera, "Autosave Final Image", original_final_value); //set to the original value
-            core_.setProperty(currentCamera, "Autosave Raw Frames", original_raw_value); //set to the original value
-            
+            RestoreOriginalSettings(); //restore original values
             StatusText.setText("Dark reference acquired with "+actual_exp_time+" seconds exposure.");
             gui_.refreshGUI();
         }catch (Exception ex) {
@@ -576,46 +556,19 @@ private void snapSaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GE
             sum_image_count = 0;
         }
         if (exposure_time!=0){
-            String original_binning_value = core_.getProperty(currentCamera, "Binning"); //store the original value            
+            StoreOriginalSettings(); //store the original values
+            core_.setProperty(currentCamera, "Correction Mode", CorrectionMode3.getSelectedItem().toString()); 
             core_.setProperty(currentCamera, "Binning", Integer.toString(binning_option));
-            
-            String original_sum_value = core_.getProperty(currentCamera, "Autosave Summed Image"); //store the original value
-            String original_final_value = core_.getProperty(currentCamera, "Autosave Final Image"); //store the original value
-            String original_raw_value = core_.getProperty(currentCamera, "Autosave Raw Frames"); //store the original value
-            String original_sum_count_value = core_.getProperty(currentCamera, "Autosave Sum Frames - Sum Count"); //store the original value
-                    
-            if (save_sum_images.isSelected())
-                core_.setProperty(currentCamera, "Autosave Summed Image", "Save");
-            else
-                core_.setProperty(currentCamera, "Autosave Summed Image", "Discard");
-            if (save_final_image.isSelected())
-                core_.setProperty(currentCamera, "Autosave Final Image", "Save");
-            else
-                core_.setProperty(currentCamera, "Autosave Final Image", "Discard");
-            if (save_raw_data.isSelected())
-                core_.setProperty(currentCamera, "Autosave Raw Frames", "Save");
-            else
-                core_.setProperty(currentCamera, "Autosave Raw Frames", "Discard");
+            UpdateAutoSavingOptions((save_final_image.isSelected())? "Save" : "Discard", (save_raw_data.isSelected())? "Save" : "Discard", (save_sum_images.isSelected())? "Save" : "Discard");
             core_.setProperty(currentCamera, "Autosave Sum Frames - Sum Count", sum_image_count);
-            
             double exp_time = exposure_time/1000.0;
             String exp_time_value = Double.toString(exp_time);
-            String original_exp_value = core_.getProperty(currentCamera, "Exposure Time (seconds)"); //store the original value
             core_.setProperty(currentCamera, "Exposure Time (seconds)", exp_time_value); //set to desired exposure
             String actual_exp_time = core_.getProperty(currentCamera, "Exposure Time (seconds)"); //get the actual exposure time
-            
             core_.snapImage();
             short[] img = (short[])core_.getImage(); 
             gui_.displayImage(img);
-            
-            core_.setProperty(currentCamera, "Exposure Time (seconds)", original_exp_value); //set to the original value
-            
-            core_.setProperty(currentCamera, "Binning", original_binning_value); //set to the original value
-
-            core_.setProperty(currentCamera, "Autosave Summed Image", original_sum_value); //set to the original value
-            core_.setProperty(currentCamera, "Autosave Final Image", original_final_value); //set to the original value
-            core_.setProperty(currentCamera, "Autosave Raw Frames", original_raw_value); //set to the original value
-            core_.setProperty(currentCamera, "Autosave Sum Frames - Sum Count", original_sum_count_value); //set to the original value
+            RestoreOriginalSettings(); //restore original values
             StatusText.setText("A new image acquired with exposure time of " + actual_exp_time + " seconds.");
         } else
             StatusText.setText("Incorrect exposure setting. ");
@@ -649,21 +602,18 @@ private void snapButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
             binning_option = 1;
         }
         if (exposure_time != 0){
-            String original_value = core_.getProperty(currentCamera, "Autosave Summed Image"); //store the original value
-            core_.setProperty(currentCamera, "Autosave Summed Image", "Discard");
-            String original_binning_value = core_.getProperty(currentCamera, "Binning"); //store the original value            
+            StoreOriginalSettings(); //store the original values
+            core_.setProperty(currentCamera, "Correction Mode", CorrectionMode2.getSelectedItem().toString()); 
+            UpdateAutoSavingOptions("Discard", "Discard", "Discard");
             core_.setProperty(currentCamera, "Binning", Integer.toString(binning_option));
             double exp_time = exposure_time/1000.0;
             String exp_time_value = Double.toString(exp_time);
-            String original_exp_value = core_.getProperty(currentCamera, "Exposure Time (seconds)"); //store the original value
             core_.setProperty(currentCamera, "Exposure Time (seconds)", exp_time_value); //set to desired exposure
             String actual_exp_time = core_.getProperty(currentCamera, "Exposure Time (seconds)"); //get the actual exposure time
             core_.snapImage();
             short[] img = (short[])core_.getImage(); 
             gui_.displayImage(img);
-            core_.setProperty(currentCamera, "Exposure Time (seconds)", original_exp_value); //set to the original value
-            core_.setProperty(currentCamera, "Binning", original_binning_value); //set to the original value
-            core_.setProperty(currentCamera, "Autosave Summed Image", original_value); //set to the original value
+            RestoreOriginalSettings(); //restore original values
             StatusText.setText("A new image acquired for display only with exposure time of " + actual_exp_time + " seconds.");
         } else 
             StatusText.setText("Incorrect exposure setting. ");
@@ -726,6 +676,43 @@ private void exposure_gainActionPerformed(java.awt.event.ActionEvent evt) {//GEN
         }   
     }
     
+    private void UpdateAutoSavingOptions(String save_final, String save_raw, String save_summed) {
+        try{
+            core_.setProperty(currentCamera, "Autosave Final Image", save_final);
+            core_.setProperty(currentCamera, "Autosave Raw Frames", save_raw);
+            core_.setProperty(currentCamera, "Autosave Summed Image", save_summed);
+        }catch (Exception ex) {
+            ReportingUtils.showError(ex);
+        }   
+    }
+    
+    private void StoreOriginalSettings() {
+        try{
+            stored_property_list.clear();
+            String property_title = "";
+            property_title = "Autosave Final Image"; stored_property_list.put(property_title, core_.getProperty(currentCamera, property_title));
+            property_title = "Autosave Raw Frames"; stored_property_list.put(property_title, core_.getProperty(currentCamera, property_title));
+            property_title = "Autosave Summed Image"; stored_property_list.put(property_title, core_.getProperty(currentCamera, property_title));
+            property_title = "Autosave Sum Frames - Sum Count"; stored_property_list.put(property_title, core_.getProperty(currentCamera, property_title));
+            property_title = "Binning"; stored_property_list.put(property_title, core_.getProperty(currentCamera, property_title));
+            property_title = "Exposure Time (seconds)"; stored_property_list.put(property_title, core_.getProperty(currentCamera, property_title));
+            property_title = "Exposure Mode"; stored_property_list.put(property_title, core_.getProperty(currentCamera, property_title));
+            property_title = "Correction Mode"; stored_property_list.put(property_title, core_.getProperty(currentCamera, property_title));            
+        }catch (Exception ex) {
+            ReportingUtils.showError(ex);
+        }   
+    }    
+                    
+    private void RestoreOriginalSettings() {
+        try{
+            for (Map.Entry<String, String> entry : stored_property_list.entrySet()){
+                core_.setProperty(currentCamera, entry.getKey(), entry.getValue());
+            }
+        }catch (Exception ex) {
+            ReportingUtils.showError(ex);
+        }   
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -768,6 +755,9 @@ private void exposure_gainActionPerformed(java.awt.event.ActionEvent evt) {//GEN
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea CameraStatusText;
+    private javax.swing.JComboBox CorrectionMode1;
+    private javax.swing.JComboBox CorrectionMode2;
+    private javax.swing.JComboBox CorrectionMode3;
     private javax.swing.JFormattedTextField StatusText;
     private javax.swing.JButton UpdateButton;
     private javax.swing.JTextField binning1;
