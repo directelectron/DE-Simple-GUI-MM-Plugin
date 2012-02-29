@@ -24,8 +24,8 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jPanel1" min="-2" pref="588" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jPanel1" min="-2" pref="623" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -49,98 +49,113 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="23" pref="23" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="snapButton1" linkSize="1" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="snapButton2" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="snapSaveButton" linkSize="1" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace pref="29" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="exposure1" alignment="0" pref="56" max="32767" attributes="1"/>
-                              <Component id="exposure3" alignment="0" pref="56" max="32767" attributes="1"/>
-                              <Component id="exposure2" alignment="0" max="32767" attributes="1"/>
+                              <Component id="jScrollPane1" alignment="1" max="32767" attributes="1"/>
+                              <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="UpdateButton" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="StatusText" alignment="0" min="-2" pref="582" max="-2" attributes="1"/>
+                              </Group>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="binning3" alignment="0" min="-2" pref="36" max="-2" attributes="0"/>
-                              <Component id="binning2" alignment="0" min="-2" pref="36" max="-2" attributes="0"/>
-                              <Component id="binning1" alignment="0" min="-2" pref="36" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="CorrectionMode3" min="-2" max="-2" attributes="0"/>
-                              <Component id="CorrectionMode2" min="-2" max="-2" attributes="0"/>
-                              <Component id="CorrectionMode1" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="95" pref="95" max="95" attributes="0"/>
-                          <Component id="save_final_image" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
-                          <Component id="save_raw_data" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="save_sum_images" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="save_sum_images_count" min="-2" pref="50" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="darkButton" min="-2" pref="164" max="-2" attributes="1"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="exposure_dark" min="-2" pref="44" max="-2" attributes="1"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
-                          <Component id="gainButton" min="-2" pref="174" max="-2" attributes="1"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="exposure_gain" min="-2" pref="44" max="-2" attributes="1"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="95" pref="95" max="95" attributes="0"/>
+                                  <Component id="save_final_image" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                                  <Component id="save_raw_data" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="save_sum_images" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="save_sum_images_count" min="-2" pref="50" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="23" pref="23" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="darkButton" min="-2" pref="164" max="-2" attributes="1"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="exposure_dark" min="-2" pref="44" max="-2" attributes="1"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                                          <Component id="gainButton" min="-2" pref="174" max="-2" attributes="1"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="exposure_gain" min="-2" pref="44" max="-2" attributes="1"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="snapButton1" linkSize="1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="snapButton2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="snapSaveButton" linkSize="1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="exposure1" alignment="0" pref="56" max="32767" attributes="1"/>
+                                              <Component id="exposure3" alignment="0" pref="56" max="32767" attributes="1"/>
+                                              <Component id="exposure2" alignment="0" max="32767" attributes="1"/>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="Smooth1" min="-2" max="-2" attributes="0"/>
+                                              <Component id="Smooth2" min="-2" max="-2" attributes="0"/>
+                                              <Component id="Smooth3" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="CorrectionMode3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="CorrectionMode2" min="-2" max="-2" attributes="0"/>
+                                              <Component id="CorrectionMode1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                          </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="binning1" min="-2" pref="28" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="1">
+                                  <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="binning2" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="1">
+                                  <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="binning3" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="StatusText" pref="565" max="32767" attributes="1"/>
-                  <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="UpdateButton" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Component id="jScrollPane1" alignment="0" pref="565" max="32767" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -150,22 +165,24 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="exposure1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="binning1" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="snapButton1" linkSize="2" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                       <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="CorrectionMode1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="binning1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="Smooth1" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="exposure2" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="binning2" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="CorrectionMode2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="binning2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="Smooth2" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -181,10 +198,11 @@
                       <Component id="snapSaveButton" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="exposure3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="binning3" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="CorrectionMode3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="binning3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="Smooth3" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="2" attributes="0">
@@ -196,23 +214,23 @@
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="darkButton" alignment="3" pref="27" max="32767" attributes="1"/>
-                      <Component id="exposure_dark" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="gainButton" alignment="3" max="32767" attributes="1"/>
                       <Component id="exposure_gain" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="darkButton" alignment="3" pref="27" max="32767" attributes="1"/>
+                      <Component id="exposure_dark" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="StatusText" min="-2" pref="32" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="UpdateButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                  <Component id="jScrollPane1" min="-2" pref="102" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -221,6 +239,7 @@
         <Component class="javax.swing.JButton" name="snapButton1">
           <Properties>
             <Property name="text" type="java.lang.String" value="Snap for display only"/>
+            <Property name="toolTipText" type="java.lang.String" value="Snap an image for display without saving to disk"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="snapButton1ActionPerformed"/>
@@ -229,6 +248,7 @@
         <Component class="javax.swing.JButton" name="snapSaveButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Snap with autosave"/>
+            <Property name="toolTipText" type="java.lang.String" value="Acquire an image for display without saving to disk"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="snapSaveButtonActionPerformed"/>
@@ -237,6 +257,7 @@
         <Component class="javax.swing.JButton" name="darkButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Acquire Dark Reference"/>
+            <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;Acquire a new dark reference&lt;br /&gt;(beam will be  blanked automatically by the shutter control box)&lt;/html&gt;"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="darkButtonActionPerformed"/>
@@ -245,6 +266,7 @@
         <Component class="javax.swing.JButton" name="gainButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Acquire Gain Reference"/>
+            <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;Acquire a new gain reference&lt;br /&gt;(please navigate to an empty area and set up the beam intensity to match similar brightness as final images)&lt;/html&gt;"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="gainButtonActionPerformed"/>
@@ -253,6 +275,7 @@
         <Component class="javax.swing.JTextField" name="exposure1">
           <Properties>
             <Property name="text" type="java.lang.String" value="500"/>
+            <Property name="toolTipText" type="java.lang.String" value="Exposure time in milliseconds"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exposure1ActionPerformed"/>
@@ -266,6 +289,7 @@
         <Component class="javax.swing.JTextField" name="exposure2">
           <Properties>
             <Property name="text" type="java.lang.String" value="1000"/>
+            <Property name="toolTipText" type="java.lang.String" value="Exposure time in milliseconds"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exposure2ActionPerformed"/>
@@ -274,6 +298,7 @@
         <Component class="javax.swing.JButton" name="snapButton2">
           <Properties>
             <Property name="text" type="java.lang.String" value="Snap for display only"/>
+            <Property name="toolTipText" type="java.lang.String" value="Snap an image for display without saving to disk"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="snapButton2ActionPerformed"/>
@@ -303,6 +328,7 @@
           <Properties>
             <Property name="selected" type="boolean" value="true"/>
             <Property name="text" type="java.lang.String" value="Final Image"/>
+            <Property name="toolTipText" type="java.lang.String" value="Enable saving of the final return image to disk."/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="save_final_imageActionPerformed"/>
@@ -311,11 +337,13 @@
         <Component class="javax.swing.JCheckBox" name="save_raw_data">
           <Properties>
             <Property name="text" type="java.lang.String" value="Raw Data"/>
+            <Property name="toolTipText" type="java.lang.String" value="Enable saving of raw frames to disk"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JCheckBox" name="save_sum_images">
           <Properties>
             <Property name="text" type="java.lang.String" value="Sum Images"/>
+            <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;Enable saving of summed images to disk. &lt;br /&gt;Summed images are the sum of sub-groups of multiple frames.&lt;/html&gt;"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="save_sum_imagesActionPerformed"/>
@@ -324,7 +352,7 @@
         <Component class="javax.swing.JTextField" name="save_sum_images_count">
           <Properties>
             <Property name="text" type="java.lang.String" value="0"/>
-            <Property name="toolTipText" type="java.lang.String" value="Number of frames in each grouped sum. 0 means all frames summed together."/>
+            <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;Summed image count&lt;br /&gt;Number of frames in each grouped summed image. 0 means all frames summed together.&lt;/html&gt;"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="save_sum_images_countActionPerformed"/>
@@ -338,6 +366,7 @@
         <Component class="javax.swing.JTextField" name="exposure3">
           <Properties>
             <Property name="text" type="java.lang.String" value="1000"/>
+            <Property name="toolTipText" type="java.lang.String" value="Exposure time in milliseconds"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exposure3ActionPerformed"/>
@@ -351,6 +380,7 @@
         <Component class="javax.swing.JTextField" name="binning1">
           <Properties>
             <Property name="text" type="java.lang.String" value="1"/>
+            <Property name="toolTipText" type="java.lang.String" value="Binning"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel8">
@@ -366,6 +396,7 @@
         <Component class="javax.swing.JTextField" name="binning2">
           <Properties>
             <Property name="text" type="java.lang.String" value="1"/>
+            <Property name="toolTipText" type="java.lang.String" value="Binning"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel10">
@@ -376,11 +407,13 @@
         <Component class="javax.swing.JTextField" name="binning3">
           <Properties>
             <Property name="text" type="java.lang.String" value="1"/>
+            <Property name="toolTipText" type="java.lang.String" value="Binning"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="exposure_dark">
           <Properties>
             <Property name="text" type="java.lang.String" value="2000"/>
+            <Property name="toolTipText" type="java.lang.String" value="Exposure time in milliseconds for dark reference"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exposure_darkActionPerformed"/>
@@ -389,6 +422,7 @@
         <Component class="javax.swing.JTextField" name="exposure_gain">
           <Properties>
             <Property name="text" type="java.lang.String" value="2000"/>
+            <Property name="toolTipText" type="java.lang.String" value="Exposure time in milliseconds for gain reference"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exposure_gainActionPerformed"/>
@@ -407,6 +441,7 @@
         <Component class="javax.swing.JButton" name="UpdateButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Update"/>
+            <Property name="toolTipText" type="java.lang.String" value="Manually update camera status"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="UpdateButtonActionPerformed"/>
@@ -433,6 +468,7 @@
                 </Property>
                 <Property name="lineWrap" type="boolean" value="true"/>
                 <Property name="rows" type="int" value="6"/>
+                <Property name="toolTipText" type="java.lang.String" value="Camera status information (temperature, faraday reading)"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -446,7 +482,7 @@
                 <StringItem index="2" value="Dark Corrected"/>
               </StringArray>
             </Property>
-            <Property name="toolTipText" type="java.lang.String" value="1, 2, 3"/>
+            <Property name="toolTipText" type="java.lang.String" value="Correction Mode"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="CorrectionMode2">
@@ -458,7 +494,7 @@
                 <StringItem index="2" value="Dark Corrected"/>
               </StringArray>
             </Property>
-            <Property name="toolTipText" type="java.lang.String" value="1, 2, 3"/>
+            <Property name="toolTipText" type="java.lang.String" value="Correction Mode"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="CorrectionMode3">
@@ -470,15 +506,43 @@
                 <StringItem index="2" value="Dark Corrected"/>
               </StringArray>
             </Property>
-            <Property name="toolTipText" type="java.lang.String" value="1, 2, 3"/>
+            <Property name="toolTipText" type="java.lang.String" value="Correction Mode"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JFormattedTextField" name="StatusText">
           <Properties>
+            <Property name="toolTipText" type="java.lang.String" value="Displays results of actions in the GUI."/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="StatusTextActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="Smooth1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Smooth"/>
+            <Property name="toolTipText" type="java.lang.String" value="Enable low pass filtering to smooth the image for display purpose only!"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Smooth1ActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="Smooth2">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Smooth"/>
+            <Property name="toolTipText" type="java.lang.String" value="Enable low pass filtering to smooth the image for display purpose only!"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Smooth2ActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="Smooth3">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Smooth"/>
+            <Property name="toolTipText" type="java.lang.String" value="Enable low pass filtering to smooth the image for display purpose only!"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Smooth3ActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

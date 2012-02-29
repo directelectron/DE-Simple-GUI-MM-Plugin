@@ -14,6 +14,7 @@ import java.util.*;
 import ij.process.ByteProcessor;
 
 import ij.process.ShortProcessor;
+import ij.process.ImageProcessor;
 import ij.ImagePlus;
 import ij.IJ;
 import ij.io.FileSaver;
@@ -25,6 +26,7 @@ import org.micromanager.utils.ReportingUtils;
 import org.micromanager.utils.MMScriptException;
 import mmcorej.CMMCore;
 import mmcorej.MMCoreJ;
+import org.micromanager.utils.ImageUtils;
 
 /**
  *
@@ -96,12 +98,16 @@ public class MainFrame extends javax.swing.JFrame {
         CorrectionMode2 = new javax.swing.JComboBox();
         CorrectionMode3 = new javax.swing.JComboBox();
         StatusText = new javax.swing.JFormattedTextField();
+        Smooth1 = new javax.swing.JCheckBox();
+        Smooth2 = new javax.swing.JCheckBox();
+        Smooth3 = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setPreferredSize(new java.awt.Dimension(445, 332));
 
         snapButton1.setText("Snap for display only");
+        snapButton1.setToolTipText("Snap an image for display without saving to disk");
         snapButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 snapButton1ActionPerformed(evt);
@@ -109,6 +115,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         snapSaveButton.setText("Snap with autosave");
+        snapSaveButton.setToolTipText("Acquire an image for display without saving to disk");
         snapSaveButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 snapSaveButtonActionPerformed(evt);
@@ -116,6 +123,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         darkButton.setText("Acquire Dark Reference");
+        darkButton.setToolTipText("<html>Acquire a new dark reference<br />(beam will be  blanked automatically by the shutter control box)</html>");
         darkButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 darkButtonActionPerformed(evt);
@@ -123,6 +131,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         gainButton.setText("Acquire Gain Reference");
+        gainButton.setToolTipText("<html>Acquire a new gain reference<br />(please navigate to an empty area and set up the beam intensity to match similar brightness as final images)</html>");
         gainButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 gainButtonActionPerformed(evt);
@@ -130,6 +139,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         exposure1.setText("500");
+        exposure1.setToolTipText("Exposure time in milliseconds");
         exposure1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exposure1ActionPerformed(evt);
@@ -139,6 +149,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel1.setText("msec");
 
         exposure2.setText("1000");
+        exposure2.setToolTipText("Exposure time in milliseconds");
         exposure2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exposure2ActionPerformed(evt);
@@ -146,6 +157,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         snapButton2.setText("Snap for display only");
+        snapButton2.setToolTipText("Snap an image for display without saving to disk");
         snapButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 snapButton2ActionPerformed(evt);
@@ -162,6 +174,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         save_final_image.setSelected(true);
         save_final_image.setText("Final Image");
+        save_final_image.setToolTipText("Enable saving of the final return image to disk.");
         save_final_image.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 save_final_imageActionPerformed(evt);
@@ -169,8 +182,10 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         save_raw_data.setText("Raw Data");
+        save_raw_data.setToolTipText("Enable saving of raw frames to disk");
 
         save_sum_images.setText("Sum Images");
+        save_sum_images.setToolTipText("<html>Enable saving of summed images to disk. <br />Summed images are the sum of sub-groups of multiple frames.</html>");
         save_sum_images.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 save_sum_imagesActionPerformed(evt);
@@ -178,7 +193,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         save_sum_images_count.setText("0");
-        save_sum_images_count.setToolTipText("Number of frames in each grouped sum. 0 means all frames summed together.");
+        save_sum_images_count.setToolTipText("<html>Summed image count<br />Number of frames in each grouped summed image. 0 means all frames summed together.</html>");
         save_sum_images_count.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 save_sum_images_countActionPerformed(evt);
@@ -188,6 +203,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel6.setText("Sum Image Count");
 
         exposure3.setText("1000");
+        exposure3.setToolTipText("Exposure time in milliseconds");
         exposure3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exposure3ActionPerformed(evt);
@@ -197,18 +213,22 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel7.setText("msec");
 
         binning1.setText("1");
+        binning1.setToolTipText("Binning");
 
         jLabel8.setText("Bin");
 
         jLabel9.setText("Bin");
 
         binning2.setText("1");
+        binning2.setToolTipText("Binning");
 
         jLabel10.setText("Bin");
 
         binning3.setText("1");
+        binning3.setToolTipText("Binning");
 
         exposure_dark.setText("2000");
+        exposure_dark.setToolTipText("Exposure time in milliseconds for dark reference");
         exposure_dark.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exposure_darkActionPerformed(evt);
@@ -216,6 +236,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         exposure_gain.setText("2000");
+        exposure_gain.setToolTipText("Exposure time in milliseconds for gain reference");
         exposure_gain.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exposure_gainActionPerformed(evt);
@@ -227,6 +248,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel12.setText("msec");
 
         UpdateButton.setText("Update");
+        UpdateButton.setToolTipText("Manually update camera status");
         UpdateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 UpdateButtonActionPerformed(evt);
@@ -240,21 +262,47 @@ public class MainFrame extends javax.swing.JFrame {
         CameraStatusText.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         CameraStatusText.setLineWrap(true);
         CameraStatusText.setRows(6);
+        CameraStatusText.setToolTipText("Camera status information (temperature, faraday reading)");
         jScrollPane1.setViewportView(CameraStatusText);
 
         CorrectionMode1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Gain and Dark Corrected", "Uncorrected Raw", "Dark Corrected" }));
-        CorrectionMode1.setToolTipText("1, 2, 3");
+        CorrectionMode1.setToolTipText("Correction Mode");
 
         CorrectionMode2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Gain and Dark Corrected", "Uncorrected Raw", "Dark Corrected" }));
-        CorrectionMode2.setToolTipText("1, 2, 3");
+        CorrectionMode2.setToolTipText("Correction Mode");
 
         CorrectionMode3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Gain and Dark Corrected", "Uncorrected Raw", "Dark Corrected" }));
-        CorrectionMode3.setToolTipText("1, 2, 3");
+        CorrectionMode3.setToolTipText("Correction Mode");
 
+        StatusText.setToolTipText("Displays results of actions in the GUI.");
         StatusText.setEnabled(false);
         StatusText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 StatusTextActionPerformed(evt);
+            }
+        });
+
+        Smooth1.setText("Smooth");
+        Smooth1.setToolTipText("Enable low pass filtering to smooth the image for display purpose only!");
+        Smooth1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Smooth1ActionPerformed(evt);
+            }
+        });
+
+        Smooth2.setText("Smooth");
+        Smooth2.setToolTipText("Enable low pass filtering to smooth the image for display purpose only!");
+        Smooth2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Smooth2ActionPerformed(evt);
+            }
+        });
+
+        Smooth3.setText("Smooth");
+        Smooth3.setToolTipText("Enable low pass filtering to smooth the image for display purpose only!");
+        Smooth3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Smooth3ActionPerformed(evt);
             }
         });
 
@@ -263,82 +311,90 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(snapButton1)
-                            .addComponent(snapButton2)
-                            .addComponent(snapSaveButton))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addContainerGap(29, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(exposure1, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
-                            .addComponent(exposure3, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
-                            .addComponent(exposure2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel13)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(UpdateButton))
+                                .addComponent(StatusText, javax.swing.GroupLayout.PREFERRED_SIZE, 582, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel7))
-                        .addGap(22, 22, 22)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel10))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(binning3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(binning2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(binning1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(95, 95, 95)
+                                .addComponent(save_final_image)
+                                .addGap(11, 11, 11)
+                                .addComponent(save_raw_data)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(save_sum_images)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(save_sum_images_count, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(23, 23, 23)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(darkButton, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(exposure_dark, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel11)
+                                        .addGap(30, 30, 30)
+                                        .addComponent(gainButton, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(exposure_gain, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel12))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel3)
+                                            .addComponent(jLabel4)
+                                            .addComponent(jLabel5))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(snapButton1)
+                                            .addComponent(snapButton2)
+                                            .addComponent(snapSaveButton))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(exposure1, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
+                                            .addComponent(exposure3, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
+                                            .addComponent(exposure2))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel1)
+                                            .addComponent(jLabel2)
+                                            .addComponent(jLabel7))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(Smooth1)
+                                            .addComponent(Smooth2)
+                                            .addComponent(Smooth3))
+                                        .addGap(7, 7, 7)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(CorrectionMode3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(CorrectionMode2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(CorrectionMode1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(CorrectionMode3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(CorrectionMode2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(CorrectionMode1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(95, 95, 95)
-                        .addComponent(save_final_image)
-                        .addGap(11, 11, 11)
-                        .addComponent(save_raw_data)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(save_sum_images)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(save_sum_images_count, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(darkButton, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(exposure_dark, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel11)
-                        .addGap(43, 43, 43)
-                        .addComponent(gainButton, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(exposure_gain, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel12)))
-                .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(StatusText, javax.swing.GroupLayout.DEFAULT_SIZE, 565, Short.MAX_VALUE)
-                .addGap(13, 13, 13))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel13)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(UpdateButton))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 565, Short.MAX_VALUE))
-                .addGap(13, 13, 13))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(binning1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(binning2))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(binning3)))))
+                .addGap(12, 12, 12))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {snapButton1, snapSaveButton});
@@ -349,21 +405,23 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(exposure1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8)
-                    .addComponent(binning1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(snapButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
-                    .addComponent(CorrectionMode1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(CorrectionMode1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8)
+                    .addComponent(binning1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Smooth1))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(exposure2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)
+                            .addComponent(CorrectionMode2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(binning2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel9)
-                            .addComponent(jLabel2)
-                            .addComponent(CorrectionMode2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(Smooth2)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -374,10 +432,11 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(snapSaveButton)
                     .addComponent(jLabel5)
                     .addComponent(exposure3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7)
+                    .addComponent(CorrectionMode3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10)
                     .addComponent(binning3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7)
-                    .addComponent(CorrectionMode3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Smooth3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(save_final_image)
@@ -387,21 +446,21 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(save_sum_images_count, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(darkButton, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
-                    .addComponent(exposure_dark, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11)
                     .addComponent(gainButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(exposure_gain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel12))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jLabel12)
+                    .addComponent(darkButton, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+                    .addComponent(exposure_dark, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11))
+                .addGap(18, 18, 18)
                 .addComponent(StatusText, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(4, 4, 4)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
                     .addComponent(UpdateButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(17, 17, 17))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {snapButton1, snapSaveButton});
@@ -412,8 +471,8 @@ public class MainFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 588, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 623, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -486,8 +545,12 @@ private void snapButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
             core_.setProperty(currentCamera, "Exposure Time (seconds)", exp_time_value); //set to desired exposure
             String actual_exp_time = core_.getProperty(currentCamera, "Exposure Time (seconds)"); //get the actual exposure time
             core_.snapImage();
-            short[] img = (short[])core_.getImage(); 
-            gui_.displayImage(img);
+            if (Smooth1.isSelected()){
+                ImageProcessor image_data = ImageUtils.makeProcessor(core_, core_.getImage());
+                image_data.smooth();
+                gui_.displayImage(image_data.getPixels());
+            } else 
+                gui_.displayImage(core_.getImage());
             RestoreOriginalSettings(); //restore original values
             StatusText.setText("A new image acquired for display only with exposure time of " + actual_exp_time + " seconds.");
         } else 
@@ -566,8 +629,12 @@ private void snapSaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GE
             core_.setProperty(currentCamera, "Exposure Time (seconds)", exp_time_value); //set to desired exposure
             String actual_exp_time = core_.getProperty(currentCamera, "Exposure Time (seconds)"); //get the actual exposure time
             core_.snapImage();
-            short[] img = (short[])core_.getImage(); 
-            gui_.displayImage(img);
+            if (Smooth3.isSelected()){
+                ImageProcessor image_data = ImageUtils.makeProcessor(core_, core_.getImage());
+                image_data.smooth();
+                gui_.displayImage(image_data.getPixels());
+            } else 
+                gui_.displayImage(core_.getImage());
             RestoreOriginalSettings(); //restore original values
             StatusText.setText("A new image acquired with exposure time of " + actual_exp_time + " seconds.");
         } else
@@ -611,8 +678,12 @@ private void snapButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
             core_.setProperty(currentCamera, "Exposure Time (seconds)", exp_time_value); //set to desired exposure
             String actual_exp_time = core_.getProperty(currentCamera, "Exposure Time (seconds)"); //get the actual exposure time
             core_.snapImage();
-            short[] img = (short[])core_.getImage(); 
-            gui_.displayImage(img);
+            if (Smooth2.isSelected()){
+                ImageProcessor image_data = ImageUtils.makeProcessor(core_, core_.getImage());
+                image_data.smooth();
+                gui_.displayImage(image_data.getPixels());
+            } else 
+                gui_.displayImage(core_.getImage());
             RestoreOriginalSettings(); //restore original values
             StatusText.setText("A new image acquired for display only with exposure time of " + actual_exp_time + " seconds.");
         } else 
@@ -655,6 +726,18 @@ private void exposure_gainActionPerformed(java.awt.event.ActionEvent evt) {//GEN
         // TODO add your handling code here:
         UpdateCameraStatus();
     }//GEN-LAST:event_UpdateButtonActionPerformed
+
+    private void Smooth1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Smooth1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Smooth1ActionPerformed
+
+    private void Smooth3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Smooth3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Smooth3ActionPerformed
+
+    private void Smooth2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Smooth2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Smooth2ActionPerformed
 
     private void UpdateCameraStatus() {
         try{
@@ -758,6 +841,9 @@ private void exposure_gainActionPerformed(java.awt.event.ActionEvent evt) {//GEN
     private javax.swing.JComboBox CorrectionMode1;
     private javax.swing.JComboBox CorrectionMode2;
     private javax.swing.JComboBox CorrectionMode3;
+    private javax.swing.JCheckBox Smooth1;
+    private javax.swing.JCheckBox Smooth2;
+    private javax.swing.JCheckBox Smooth3;
     private javax.swing.JFormattedTextField StatusText;
     private javax.swing.JButton UpdateButton;
     private javax.swing.JTextField binning1;
