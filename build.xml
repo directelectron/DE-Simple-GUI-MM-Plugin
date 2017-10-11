@@ -73,7 +73,7 @@
     -->
 	
 	<target name="-post-jar">
-        <copy file="${dist.jar}" todir="C:\Program Files\Micro-Manager-1.4\mmplugins\" />
+        <copy file="${dist.jar}" todir="C:\Program Files\Micro-Manager-1.4.7\mmplugins\" />
 
 
 
